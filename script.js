@@ -1,4 +1,4 @@
-// Initial score object
+// Initial Scores
 let scores = {
   red: 0,
   blue: 0,
@@ -8,7 +8,7 @@ let scores = {
 
 // 🟢 Opening Ceremony
 function OpeningCeremony(callback) {
-  console.log("🏁 Opening Ceremony Started...");
+  console.log("🏁 Sports Day Started...");
 
   setTimeout(() => {
     console.log("Initial Scores:", scores);
@@ -21,7 +21,6 @@ function Race100M(scores, callback) {
   console.log("\n🏃 100M Race Started...");
 
   setTimeout(() => {
-    // Generate random times
     let times = {
       red: Math.random() * 10 + 10,
       blue: Math.random() * 10 + 10,
@@ -29,12 +28,11 @@ function Race100M(scores, callback) {
       yellow: Math.random() * 10 + 10
     };
 
-    // Sort by time (lowest wins)
     let sorted = Object.entries(times).sort((a, b) => a[1] - b[1]);
 
     // Assign points
-    scores[sorted[0][0]] += 50;
-    scores[sorted[1][0]] += 25;
+    scores[sorted[0][0]] += 50; // 1st
+    scores[sorted[1][0]] += 25; // 2nd
 
     console.log("Race Results:", sorted);
     console.log("Updated Scores:", scores);
@@ -65,7 +63,11 @@ function HighJump(scores, callback) {
   console.log("\n🏆 High Jump Started...");
 
   setTimeout(() => {
-    let userInput = prompt("Which color won High Jump?");
+    let userInput = prompt("Enter color (red, blue, green, yellow):");
+
+    if (userInput) {
+      userInput = userInput.toLowerCase();
+    }
 
     if (scores.hasOwnProperty(userInput)) {
       scores[userInput] += 100;
@@ -91,7 +93,7 @@ function AwardCeremony(scores) {
   console.log(`🥉 3rd Place: ${sorted[2][0]}`);
 }
 
-// 🔗 Callback Chain Execution
+// 🔗 Start Execution (ONLY THIS SHOULD RUN)
 OpeningCeremony((scores) => {
   Race100M(scores, (scores) => {
     LongJump(scores, (scores) => {
