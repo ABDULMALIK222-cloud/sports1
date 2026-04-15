@@ -1,0 +1,83 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #74ebd5, #9face6);
+  text-align: center;
+  padding: 30px;
+}
+
+h1 {
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+}
+
+.container {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  width: 60%;
+  margin: auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.event {
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.opening { background: #3498db; }
+.race { background: #e67e22; }
+.longjump { background: #2ecc71; }
+.highjump { background: #9b59b6; }
+.award { background: #e74c3c; }
+
+.scoreboard {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.scoreboard h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+table th {
+  background: #333;
+  color: #fff;
+}
+
+.btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #219150;
+}
