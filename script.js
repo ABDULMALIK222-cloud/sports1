@@ -1,104 +1,110 @@
-// Initial Scores
-let scores = {
-  red: 0,
-  blue: 0,
-  green: 0,
-  yellow: 0
+// Score object
+let score = {
+  Red: 0,
+  Blue: 0,
+  Green: 0,
+  Yellow: 0
 };
 
-// 🟢 Opening Ceremony
+// Opening Ceremony
 function OpeningCeremony(callback) {
-  console.log("🏁 Sports Day Started...");
+  console.log("🏁 Sports Day Opening Ceremony Started...");
 
-  setTimeout(() => {
-    console.log("Initial Scores:", scores);
-    callback(scores);
+  let count = 0;
+  let interval = setInterval(() => {
+    console.log("Get Ready... " + (count + 1));
+    count++;
+
+    if (count === 3) {
+      clearInterval(interval);
+      console.log("Let the games begin!\n");
+      callback(score);
+    }
   }, 1000);
 }
 
-// 🏃 Race 100M
-function Race100M(scores, callback) {
-  console.log("\n🏃 100M Race Started...");
-
+// Race 100M
+function Race100M(score, callback) {
   setTimeout(() => {
+    console.log("🏃‍♂️ 100M Race Started...");
+
     let times = {
-      red: Math.random() * 10 + 10,
-      blue: Math.random() * 10 + 10,
-      green: Math.random() * 10 + 10,
-      yellow: Math.random() * 10 + 10
+      Red: Math.random() * 5 + 10,
+      Blue: Math.random() * 5 + 10,
+      Green: Math.random() * 5 + 10,
+      Yellow: Math.random() * 5 + 10
     };
 
+    // Sort by time
     let sorted = Object.entries(times).sort((a, b) => a[1] - b[1]);
 
-    // Assign points
-    scores[sorted[0][0]] += 50; // 1st
-    scores[sorted[1][0]] += 25; // 2nd
+    // Assign scores
+    score[sorted[0][0]] += 50;
+    score[sorted[1][0]] += 25;
 
     console.log("Race Results:", sorted);
-    console.log("Updated Scores:", scores);
 
-    callback(scores);
+    callback(score);
   }, 3000);
 }
 
-// 🏅 Long Jump
-function LongJump(scores, callback) {
-  console.log("\n🏅 Long Jump Started...");
-
+// Long Jump
+function LongJump(score, callback) {
   setTimeout(() => {
-    let colors = Object.keys(scores);
+    console.log("\n🏃 Long Jump Event...");
+
+    let colors = ["Red", "Blue", "Green", "Yellow"];
     let winner = colors[Math.floor(Math.random() * colors.length)];
 
-    scores[winner] += 150;
+    score[winner] += 150;
 
     console.log("Long Jump Winner:", winner);
-    console.log("Updated Scores:", scores);
 
-    callback(scores);
+    callback(score);
   }, 2000);
 }
 
-// 🏆 High Jump
-function HighJump(scores, callback) {
-  console.log("\n🏆 High Jump Started...");
+// High Jump
+function HighJump(score, callback) {
+  console.log("\n🏆 High Jump Event...");
 
-  setTimeout(() => {
-    let userInput = prompt("Enter color (red, blue, green, yellow):");
+  let userInput = prompt("Enter the color with highest jump (Red/Blue/Green/Yellow):");
 
-    if (userInput) {
-      userInput = userInput.toLowerCase();
-    }
+  if (!userInput) {
+    console.log("Event was cancelled due to no input");
+    callback(score);
+    return;
+  }
 
-    if (scores.hasOwnProperty(userInput)) {
-      scores[userInput] += 100;
-    } else {
-      console.log("Invalid input! No points awarded.");
-    }
+  userInput = userInput.trim();
 
-    console.log("Updated Scores:", scores);
+  if (score.hasOwnProperty(userInput)) {
+    score[userInput] += 100;
+    console.log(userInput + " won High Jump!");
+  } else {
+    console.log("Invalid input! No points awarded.");
+  }
 
-    callback(scores);
-  }, 2000);
+  callback(score);
 }
 
-// 🎉 Award Ceremony
-function AwardCeremony(scores) {
-  console.log("\n🎉 Award Ceremony");
+// Award Ceremony
+function AwardCeremony(score) {
+  console.log("\n🎉 Final Scores:", score);
 
-  let sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  let sorted = Object.entries(score).sort((a, b) => b[1] - a[1]);
 
-  console.log("Final Scores:", scores);
-  console.log(`🥇 1st Place: ${sorted[0][0]}`);
-  console.log(`🥈 2nd Place: ${sorted[1][0]}`);
-  console.log(`🥉 3rd Place: ${sorted[2][0]}`);
+  console.log("\n🥇 1st Place:", sorted[0][0]);
+  console.log("🥈 2nd Place:", sorted[1][0]);
+  console.log("🥉 3rd Place:", sorted[2][0]);
 }
 
-// 🔗 Start Execution (ONLY THIS SHOULD RUN)
-OpeningCeremony((scores) => {
-  Race100M(scores, (scores) => {
-    LongJump(scores, (scores) => {
-      HighJump(scores, (scores) => {
-        AwardCeremony(scores);
+// Execution Chain
+OpeningCeremony((score) => {
+  Race100M(score, (score) => {
+    LongJump(score, (score) => {
+      HighJump(score, (score) => {
+        AwardCeremony(score);
       });
     });
   });
